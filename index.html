@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soberano Builder V13 | Asistente Universal Pro</title>
+    <style>
+        :root { --gold: #D4AF37; --dark-bg: #0a0a0a; --glass: rgba(255, 255, 255, 0.05); }
+        * { box-sizing: border-box; }
+        body { background: var(--dark-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        .builder-container { max-width: 850px; width: 100%; background: linear-gradient(145deg, #1a1a1a, #000); border: 2px solid var(--gold); border-radius: 20px; padding: 25px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); }
+        h1 { color: var(--gold); text-align: center; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--gold); padding-bottom: 15px; font-size: 1.1rem; }
+        .section { margin-bottom: 20px; padding: 15px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 15px; background: var(--glass); }
+        label { color: var(--gold); font-size: 0.75rem; font-weight: bold; display: block; margin-bottom: 5px; text-transform: uppercase; }
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--gold); background: #000; color: #fff; outline: none; margin-bottom: 12px; font-size: 14px; }
+        .btn-generar { background: transparent; color: var(--gold); border: 2px solid var(--gold); padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; transition: 0.4s; font-size: 0.9rem;}
+        .btn-generar:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold); }
+        #codigo_salida { width: 100%; height: 250px; margin-top: 20px; background: #050505; color: #00ff41; font-family: monospace; border: 1px solid #444; padding: 10px; border-radius: 10px; display: none; font-size: 11px; }
+    </style>
+</head>
+<body>
+
+    <div class="builder-container">
+        <h1>🛠️ SOBERANO BUILDER V13 (UNIVERSAL)</h1>
+        
+        <div class="section">
+            <label>Nombre del Negocio:</label>
+            <input type="text" id="nombre_negocio" placeholder="Ej: Consultorio Dental">
+            <label>WhatsApp Destino (Sin el +):</label>
+            <input type="text" id="ws_num" placeholder="5493764362698">
+        </div>
+
+        <button class="btn-generar" onclick="fabricarCodigo()">Generar Asistente Universal 🚀</button>
+        <textarea id="codigo_salida" readonly></textarea>
+    </div>
+
+<script>
+    function fabricarCodigo() {
+        const nombre = document.getElementById('nombre_negocio').value || "NEGOCIO";
+        const ws = document.getElementById('ws_num').value;
+        const avatar = "https://i.ibb.co/pjL8062t/ei-1776373504277-removebg-preview.png";
+
+        if(!ws) return alert("Falta el WhatsApp de destino.");
+
+        const scriptCodigo = `<div id="sob_mod" style="width:100%; box-sizing:border-box; padding:5px;">
+    <style>
+        #sob_mod * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        #sob_mod .s-c { width:100%; max-width:450px; margin:0 auto; border:2px solid #D4AF37; padding:15px; border-radius:20px; background:#000; color:white; box-shadow:0 10px 40px #000; position:relative; }
+        #sob_mod .chat-box { height:320px; overflow-y:auto; margin-bottom:15px; display:flex; flex-direction:column; scroll-behavior: smooth; padding-right:5px; }
+        #sob_mod .chat-box::-webkit-scrollbar { width: 3px; }
+        #sob_mod .chat-box::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        #sob_mod .msg { background:rgba(255,255,255,0.05); padding:12px; border-radius:15px; border-left:3px solid #D4AF37; margin-bottom:10px; font-size:0.9rem; line-height:1.4; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #sob_mod .bot-h { display:flex; align-items:center; gap:12px; margin-bottom:12px; border-bottom:1px solid #222; padding-bottom:10px; }
+        #sob_mod .bot-img { width:45px; height:45px; border-radius:50%; border:1px solid #D4AF37; background: #111; object-fit: contain; }
+        #sob_mod .s-i { width:100%; padding:14px; border:1px solid #D4AF37; border-radius:12px; background:#000; color:white; font-size:16px; margin-bottom:10px; outline:none; transition: 0.3s; }
+        #sob_mod .s-i:focus { box-shadow: 0 0 10px rgba(212,175,55,0.3); }
+        #sob_mod .s-b { width:100%; padding:15px; background:#D4AF37; border:none; border-radius:12px; color:#000; font-weight:bold; cursor:pointer; text-transform:uppercase; letter-spacing:1px; }
+        #sob_mod .txt-area { height: 100px; resize: none; }
+        #sob_mod .brand-footer { text-align:center; font-size:0.6rem; color:#444; margin-top:12px; text-transform: uppercase; letter-spacing: 1px; }
+    </style>
+    <div class="s-c">
+        <div class="bot-h">
+            <img src="${avatar}" class="bot-img">
+            <div>
+                <div style="font-weight:bold; font-size:0.9rem;">Asistente Virtual</div>
+                <div style="font-size:0.65rem; color:#00ff41;">● En línea para ${nombre}</div>
+            </div>
+        </div>
+        <div id="box" class="chat-box"></div>
+        <div id="iarea">
+            <input type="text" id="in" class="s-i" placeholder="Escribe tu nombre...">
+            <button class="s-b" onclick="p()">Continuar</button>
+        </div>
+        <div class="brand-footer">Desarrollado por Portaldigitalsoft</div>
+    </div>
+    <script>
+        let pas=1, cliente={n:'', c:''};
+        const b=document.getElementById('box'), hoy=new Date().toISOString().split('T')[0];
+
+        function add(t){ const d=document.createElement('div'); d.className='msg'; d.innerHTML=t; b.appendChild(d); b.scrollTop=b.scrollHeight; }
+
+        if(localStorage.getItem('antispam_v13') === hoy) {
+            add("¡Hola! Ya recibimos tu consulta de hoy. Nos pondremos en contacto contigo a la brevedad. ¡Gracias!");
+            document.getElementById('iarea').style.display='none';
+        } else {
+            add("¡Hola! Soy tu asistente virtual de <b>${nombre}</b>. Para comenzar, ¿cuál es tu nombre?");
+        }
+
+        function p(){
+            const i=document.getElementById('in'); let v=i.value; if(!v) return;
+            if(pas==1){ 
+                cliente.n=v; 
+                add("Un gusto <b>"+v+"</b>, ¿en qué puedo ayudarte?, ¿cuál es tu consulta?"); 
+                document.getElementById('iarea').innerHTML = '<textarea id="in_txt" class="s-i txt-area" placeholder="Escribe aquí tu consulta..."></textarea><button class="s-b" onclick="enviar()">Enviar Consulta</button>';
+                pas=2;
+            }
+        }
+
+        function enviar(){
+            const txt = document.getElementById('in_txt').value; if(!txt) return;
+            cliente.c = txt;
+            
+            let ticket = "📩 *NUEVA CONSULTA - ${nombre}*\\n\\n";
+            ticket += "*Cliente:* " + cliente.n + "\\n";
+            ticket += "*Consulta:* " + cliente.c + "\\n\\n";
+            ticket += "--- \\n";
+            ticket += "🤖 *Consulta procesada por Asistente Virtual*\\n";
+            ticket += "*Acción requerida:* Responder para coordinar.";
+
+            localStorage.setItem('antispam_v13', hoy);
+            add("🚀 Procesando tu consulta...");
+            setTimeout(()=> window.open("https://wa.me/${ws}?text="+encodeURIComponent(ticket.replace(/\\\\n/g, '\\n'))), 1000);
+        }
+    <\/script>
+</div>`;
+        
+        const out = document.getElementById('codigo_salida');
+        out.value = scriptCodigo;
+        out.style.display = 'block';
+        out.select();
+    }
+</script>
+</body>
+  </html>
+
